@@ -1,0 +1,37 @@
+# Visual Studio / .NET
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+
+# Build results
+*.dll
+*.exe
+
+# Rider
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Generated files
+*.g.cs
+
+# Publish output
+publish/
+
+# Local app settings
+appsettings.Development.json
+Properties/launchSettings.json
