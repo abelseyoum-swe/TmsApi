@@ -20,15 +20,15 @@
 // app.Run();
 
 // == Task: Secure the pipeline ==
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services: add authentication / authorization service
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.Authority = "https://your-auth-server";
-    options.Audience = "tms-api";
-}); // Sample Authentication implementation for test purpose
+builder.Services
+    .AddAuthentication("Tranining")
+    .AddScheme<AuthenticationSchemeOptions,
+    TrainingAuthHandler>("Training", null);
 
 builder.Services.AddAuthorization();
 
