@@ -21,7 +21,6 @@
 
 // == Task: Secure the pipeline ==
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services: add authentication / authorization service
@@ -33,6 +32,15 @@ builder.Services
     );
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddSingleton<EnrollmentWorker>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+
+builder.Host.UseDefaultServiceProvider(options =>
+{
+    options.ValidateScopes = true;
+    options.ValidateOnBuild = true;
+});
 
 var app = builder.Build();
 
@@ -68,3 +76,12 @@ app.Run();
 // Updated Program.cs -> Add app.UseMiddleware<RequestLogginMiddleware>();
 // Updated Program.cs -> Add app.UseExceptionHandler("/error");
 // Updated Program.cs -> Add app.UseHttpsRedirection();
+
+
+// ==== Exercise 2: The Memory Leak (Captive Dependencies) ====
+
+// First, make the failure visible
+// Updated Program.cs -> Add builder.Services.AddSingleton<EnrollmentWorker>();
+// Updated Program.cs -> Add builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
+// Check ./Workers/EnrollmentWorker.cs for "class EnrollmentWorker(IServiceScopeFactory scopeFactory)"
+
