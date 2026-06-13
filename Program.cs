@@ -85,3 +85,5 @@ app.Run();
 // Updated Program.cs -> Add builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 // Check ./Workers/EnrollmentWorker.cs for "class EnrollmentWorker(IServiceScopeFactory scopeFactory)"
 
+
+// ==== Exercise 3: The Silent Crash (Options Pattern) ====
