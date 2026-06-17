@@ -36,6 +36,11 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<EnrollmentWorker>();
 builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 
+builder.Services.AddOptions<PaymentOptions>()
+    .BindConfiguration("Payments")
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
 builder.Host.UseDefaultServiceProvider(options =>
 {
     options.ValidateScopes = true;
@@ -87,3 +92,6 @@ app.Run();
 
 
 // ==== Exercise 3: The Silent Crash (Options Pattern) ====
+
+// Check ./Configurations/Payment
+// Updated Program.cs -> Add builder.Services.AddOptions<PaymentOptions>();
