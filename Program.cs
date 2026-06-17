@@ -36,10 +36,10 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<EnrollmentWorker>();
 builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 
-builder.Services.AddOptions<PaymentOptions>()
-    .BindConfiguration("Payments")
-    .ValidateDataAnnotations()
-    .ValidateOnStart();
+// builder.Services.AddOptions<PaymentOptions>()
+//     .BindConfiguration("Payments")
+//     .ValidateDataAnnotations()
+//     .ValidateOnStart();
 
 builder.Host.UseDefaultServiceProvider(options =>
 {
@@ -95,3 +95,8 @@ app.Run();
 
 // Check ./Configurations/Payment
 // Updated Program.cs -> Add builder.Services.AddOptions<PaymentOptions>();
+
+
+// ==== Exercise 4: The Unreachable Logs (Structured Logging) ====
+
+// Updated ./Services/EnrollmentService.cs methods EnrollAsync, GetByIdAsync, DeleteAsync
