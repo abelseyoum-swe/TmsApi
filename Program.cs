@@ -41,6 +41,8 @@ builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 //     .ValidateDataAnnotations()
 //     .ValidateOnStart();
 
+builder.Services.AddControllers();
+
 builder.Host.UseDefaultServiceProvider(options =>
 {
     options.ValidateScopes = true;
@@ -72,6 +74,8 @@ app.MapGet("/api/assessments/results", () => Results.Ok(new
 }))
 .RequireAuthorization();
 
+app.MapControllers();
+
 app.Run();
 
 // ==== Exercise 1B: Custom Request Logging Middleware ====
@@ -100,3 +104,11 @@ app.Run();
 // ==== Exercise 4: The Unreachable Logs (Structured Logging) ====
 
 // Updated ./Services/EnrollmentService.cs methods EnrollAsync, GetByIdAsync, DeleteAsync
+
+
+// ==== Exercise 5: The Enrollment API (Controllers with Real CRUD) ====
+
+// Check ./Controllers/EnrollmentController.cs for the Enrollment APIs
+// Part A: Get Endpoints
+// Part B: POST with 201 + Location
+// Part C: DELETE with 204/404
