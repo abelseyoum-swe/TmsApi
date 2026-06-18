@@ -42,6 +42,7 @@ builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 //     .ValidateOnStart();
 
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 
 builder.Host.UseDefaultServiceProvider(options =>
 {
@@ -50,6 +51,8 @@ builder.Host.UseDefaultServiceProvider(options =>
 });
 
 var app = builder.Build();
+
+builder.Services.AddProblemDetails();
 
 // TODO 1: Register routing in the pipeline where it belongs for your app.
 app.UseRouting();
@@ -65,6 +68,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseExceptionHandler();
+app.UseStatusCodePages();
+
 // TODO 3: Map GET /api/assessments/results with the same response body as the starter, but require authorization for that route.
 app.MapGet("/api/assessments/results", () => Results.Ok(new
 {
@@ -73,6 +79,11 @@ app.MapGet("/api/assessments/results", () => Results.Ok(new
     letterGrade = "A"
 }))
 .RequireAuthorization();
+
+app.MapGet("/api/error", () =>
+{
+    throw new TmsDatabaseException("Simulated database failure for ProblemDetails testing");
+});
 
 app.MapControllers();
 
@@ -112,3 +123,17 @@ app.Run();
 // Part A: Get Endpoints
 // Part B: POST with 201 + Location
 // Part C: DELETE with 204/404
+
+
+// ==== Exercise 6: The Consistent Fault (Standardized Error Handling) ====
+// TODO 1: Check if the app is running in Development mode.
+// Stuck? if (app.Environment.IsDevelopment()) { ... }
+// TODO 2: In Development only expose the OpenAPI document and an interactive API explorer.
+// Use the built-in MapOpenApi() and MapScalarApiReference().
+// Stuck? app.MapOpenApi(); app.MapScalarApiReference();
+// TODO 3: In Production use the exception handler middleware so stack traces
+// are never shown to external users.
+// Stuck? app.UseExceptionHandler();
+// TODO 4: Run in both environments and verify:
+// - In Development: can you browse /scalar/v1 and see your endpoints?
+// - In Production: does a thrown exception return ProblemDetails JSON, not a stack trace?
