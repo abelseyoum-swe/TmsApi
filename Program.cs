@@ -21,6 +21,9 @@
 
 // == Task: Secure the pipeline ==
 using Microsoft.AspNetCore.Authentication;
+
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Services: add authentication / authorization service
@@ -43,6 +46,8 @@ builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddOpenApi(); // Required before MapOpenApi() will work
 
 builder.Host.UseDefaultServiceProvider(options =>
 {
@@ -67,6 +72,15 @@ app.UseHttpsRedirection();
 // TODO 2: Register authentication and authorization in the pipeline where your template and facilitator expect them for a protected minimal API route.
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Program.cs — middleware section
+
+if (app.Environment.IsDevelopment())
+{
+    // Development only: expose OpenAPI document and interactive explorer
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();
@@ -126,14 +140,30 @@ app.Run();
 
 
 // ==== Exercise 6: The Consistent Fault (Standardized Error Handling) ====
-// TODO 1: Check if the app is running in Development mode.
-// Stuck? if (app.Environment.IsDevelopment()) { ... }
-// TODO 2: In Development only expose the OpenAPI document and an interactive API explorer.
-// Use the built-in MapOpenApi() and MapScalarApiReference().
-// Stuck? app.MapOpenApi(); app.MapScalarApiReference();
-// TODO 3: In Production use the exception handler middleware so stack traces
-// are never shown to external users.
-// Stuck? app.UseExceptionHandler();
-// TODO 4: Run in both environments and verify:
-// - In Development: can you browse /scalar/v1 and see your endpoints?
-// - In Production: does a thrown exception return ProblemDetails JSON, not a stack trace?
+
+    // TODO 1: Check if the app is running in Development mode.
+    // Stuck? if (app.Environment.IsDevelopment()) { ... }
+    // TODO 2: In Development only expose the OpenAPI document and an interactive API explorer.
+    // Use the built-in MapOpenApi() and MapScalarApiReference().
+    // Stuck? app.MapOpenApi(); app.MapScalarApiReference();
+    // TODO 3: In Production use the exception handler middleware so stack traces
+    // are never shown to external users.
+    // Stuck? app.UseExceptionHandler();
+    // TODO 4: Run in both environments and verify:
+    // - In Development: can you browse /scalar/v1 and see your endpoints?
+    // - In Production: does a thrown exception return ProblemDetails JSON, not a stack trace?
+
+
+// ==== Exercise 7: The Environment Toggle (Dev vs Prod) ====
+
+    // TODO 1: Check if the app is running in Development mode.
+    // Stuck? if (app.Environment.IsDevelopment()) { ... }
+    // TODO 2: In Development only expose the OpenAPI document and an interactive API explorer.
+    // Use the built-in MapOpenApi() and MapScalarApiReference().
+    // Stuck? app.MapOpenApi(); app.MapScalarApiReference();
+    // TODO 3: In Production use the exception handler middleware so stack traces
+    // are never shown to external users.
+    // Stuck? app.UseExceptionHandler();
+    // TODO 4: Run in both environments and verify:
+    // - In Development: can you browse /scalar/v1 and see your endpoints?
+    // - In Production: does a thrown exception return ProblemDetails JSON, not a stack trace?
