@@ -25,8 +25,6 @@ using Microsoft.EntityFrameworkCore;
 using TmsApi.Data;
 
 using Scalar.AspNetCore;
-using Microsoft.Extensions.Options;
-using System.Reflection.Metadata;
 using TmsApi.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
