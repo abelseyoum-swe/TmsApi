@@ -34,4 +34,4 @@ publish/
 
 # Local app settings
 appsettings.Development.json
-Properties/launchSettings.json
+# Properties/launchSettings.json
