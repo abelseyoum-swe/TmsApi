@@ -26,10 +26,7 @@ public class TestController(TmsDbContext context) : ControllerBase
     }
 
     // Non-translatable helper method
-    private static bool IsHonorRoll(decimal gpa)
-    {
-        return gpa >= 3.5m;
-    }
+    private static bool IsHonorRoll(decimal gpa) => gpa >= 3.5m;
 
     [HttpGet("translation-fail")]
     public IActionResult TestTranslationFail()

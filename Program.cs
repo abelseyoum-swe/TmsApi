@@ -270,3 +270,9 @@ app.Run();
 //       Generate a new migration
 //       Inspect it before applying
 //       Apply and verify
+
+
+// ==== Exercise 3: GroupBy, aggregates, and pagination ====
+
+    // TODO 1: Pagination  OrderBy, Skip((page - 1) * pageSize), Take(pageSize), ToListAsync with CancellationToken.  
+    // TODO 2: Top 5 courses by enrollment  GroupBy, order by count, Take(5).

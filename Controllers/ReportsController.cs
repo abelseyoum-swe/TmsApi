@@ -76,4 +76,33 @@ public class ReportsController(TmsDbContext context) : ControllerBase
         
         return Ok(list);
     }
+
+    [HttpGet("students")]
+    public async Task<IActionResult> GetStudents(int pageNumber = 1, int pageSize = 20)
+    {
+        var students = await context.Students
+            .OrderBy(s => s.Name)                           // STABLE SORT — mandatory!
+            .Skip((pageNumber - 1) * pageSize)              // Skip previous pages
+            .Take(pageSize)                                 // Take only this page
+            .ToListAsync();
+        
+        return Ok(students);
+    }
+
+    [HttpGet("top-5-courses")]
+    public async Task<IActionResult> GetTopFiveCourses()
+    {
+        var topFive = await context.Enrollments
+            .GroupBy(e => e.Course.Title)
+            .Select(g => new
+            {
+                CourseTitle = g.Key,
+                StudentCount = g.Count()
+            })
+            .OrderByDescending(x => x.StudentCount)
+            .Take(5)
+            .ToListAsync();
+        
+        return Ok(topFive);
+    }
 }
