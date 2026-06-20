@@ -284,3 +284,9 @@ app.Run();
     // Example shape (adjust names to your model): 
     // builder.HasOne(e => e.Student).WithMany(s => s.Enrollments).HasForeignKey(e => e.StudentId); 
     // builder.HasOne(e => e.Course).WithMany(c => c.Enrollments).HasForeignKey(e => e.CourseId);
+
+
+// ==== Exercise 5: Model the TMS graph ====
+
+    // TODO: Choose OnDelete behavior and express it in Fluent API. 
+    // builder.HasMany(...).WithOne(...).OnDelete(DeleteBehavior.Restrict);

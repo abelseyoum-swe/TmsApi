@@ -24,4 +24,6 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.HasIndex(s => s.RegistrationNumber)
             .IsUnique();  // Natural key uniqueness
     }
+
+    public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 }

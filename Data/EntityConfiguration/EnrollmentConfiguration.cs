@@ -28,4 +28,7 @@ public class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
             .HasForeignKey(e => e.CourseId)
             .OnDelete(DeleteBehavior.Restrict);  // Protect course from deletion
     }
+
+    public Student Student { get; set; } = null!;
+    public Course Course { get; set; } = null!;
 }
