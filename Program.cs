@@ -276,3 +276,11 @@ app.Run();
 
     // TODO 1: Pagination  OrderBy, Skip((page - 1) * pageSize), Take(pageSize), ToListAsync with CancellationToken.  
     // TODO 2: Top 5 courses by enrollment  GroupBy, order by count, Take(5).
+
+
+// ==== Exercise 4: IEntityTypeConfiguration for each entity ====
+
+    // TODO: In EnrollmentConfiguration, configure FKs and required properties. 
+    // Example shape (adjust names to your model): 
+    // builder.HasOne(e => e.Student).WithMany(s => s.Enrollments).HasForeignKey(e => e.StudentId); 
+    // builder.HasOne(e => e.Course).WithMany(c => c.Enrollments).HasForeignKey(e => e.CourseId);
