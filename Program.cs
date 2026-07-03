@@ -290,3 +290,13 @@ app.Run();
 
     // TODO: Choose OnDelete behavior and express it in Fluent API. 
     // builder.HasMany(...).WithOne(...).OnDelete(DeleteBehavior.Restrict);
+
+
+// ==== Exercise 6: Two migrations, inspected ====
+// Tasks 
+    // 1.  Create a first migration if Exercise 1 did not already cover the full graph; otherwise add a 
+    //     second migration for a deliberate change (for example add Year or IsArchived on 
+    //     Enrollment, or a RowVersion on Student for Exercise 8). 
+    // 2.  Record in your notes: what Up() does in plain language. 
+    // 3.  Practice rollback to the previous migration on a throwaway database only: 
+    //     dotnet ef database update PreviousMigrationName --project ... --startup-project ..
