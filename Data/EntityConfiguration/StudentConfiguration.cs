@@ -9,21 +9,24 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
     public void Configure(EntityTypeBuilder<Student> builder)
     {
         builder.HasKey(s => s.Id);
-        
+
         builder.Property(s => s.RegistrationNumber)
             .IsRequired()
-            .HasMaxLength(50);
-        
+            .HasMaxLength(20);
+
         builder.Property(s => s.Name)
             .IsRequired()
-            .HasMaxLength(200);
-        
-        builder.Property(s => s.GPA)
-            .HasPrecision(3, 2);  // DECIMAL(3,2) — e.g., 3.85
-        
-        builder.HasIndex(s => s.RegistrationNumber)
-            .IsUnique();  // Natural key uniqueness
-    }
+            .HasMaxLength(100);
 
-    public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        builder.Property(s => s.GPA)
+            .HasPrecision(4, 2);
+
+        builder.Property(s => s.Version)
+            .IsRowVersion();
+
+        builder.Property<DateTime>("LastUpdated")
+            .HasColumnType("timestamp without time zone");
+
+        builder.HasQueryFilter(s => !s.IsDeleted);
+    }
 }
