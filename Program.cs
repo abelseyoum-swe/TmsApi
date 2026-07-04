@@ -66,14 +66,10 @@ builder.Services.AddDbContext<TmsDbContext>(options =>
 
 var app = builder.Build();
 
-builder.Services.AddProblemDetails();
-
 // TODO 1: Register routing in the pipeline where it belongs for your app.
 app.UseRouting();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
-
-app.UseExceptionHandler("/error");
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
@@ -130,9 +126,9 @@ using (var scope = app.Services.CreateScope())
 
         var courses = new List<Course>
         {
-            new() { Code = "CS-101", Title = "Introduction to Computer Science", Capacity = 30 },
-            new() { Code = "CS-201", Title = "Data Structures and Algorithms", Capacity = 25 },
-            new() { Code = "MAT-101", Title = "Calculus I", Capacity = 40 }
+            new() { Code = "CS-101", Title = "Introduction to Computer Science", MaxCapacity = 30 },
+            new() { Code = "CS-201", Title = "Data Structures and Algorithms", MaxCapacity = 25 },
+            new() { Code = "MAT-101", Title = "Calculus I", MaxCapacity = 40 }
         };
         context.Courses.AddRange(courses);
         context.SaveChanges();
